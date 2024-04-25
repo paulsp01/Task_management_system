@@ -1,15 +1,16 @@
 const express=require('express');
 const router=express.Router();
-const task=require('../models/Task');
+const Task=require('../models/Task');
 
 router.post("/tasks", async (req, res) => {
   try {
     const { title, description, status } = req.body;
     const task = new Task({ title, description, status });
     const newTask = await task.save();
-    res.status(201).json(newTask);
+    res.status(201).json({newTask, message:"Task created successfully"});
   } catch (err) {
     res.status(400).json({ message: err.message });
+   
   }
 });
 
@@ -45,24 +46,24 @@ router.put("/tasks/:id", getTask, async (req, res) => {
 // Endpoint to delete a task by its ID
 router.delete("/tasks/:id", getTask, async (req, res) => {
   try {
-    await res.task.remove();
+    await Task.findByIdAndDelete(req.params.id); // Use Mongoose findByIdAndDelete method
     res.json({ message: "Task deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-async function getTask(req, res, next) {
+async function getTask(req,res,next){
   let task;
-  try {
-    task = await Task.findById(req.params.id);
-    if (task == null) {
-      return res.status(404).json({ message: "Task not found" });
+  try{
+    task=await Task.findById(req.params.id);
+    if(task==null){
+      return res.status(404).json({message:"Task not found"});
     }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
+  }catch(err){
+    return res.status(500).json({message:err.message});
   }
-  res.task = task;
+  res.task=task;
   next();
 }
 
