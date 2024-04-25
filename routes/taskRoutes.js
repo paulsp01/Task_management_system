@@ -37,7 +37,7 @@ router.put("/tasks/:id", getTask, async (req, res) => {
     if (description) res.task.description = description;
     if (status) res.task.status = status;
     const updatedTask = await res.task.save();
-    res.json(updatedTask);
+    res.json({updatedTask, message:"Task updated successfully"});
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
