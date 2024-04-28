@@ -12,6 +12,7 @@ const taskSchema = new mongoose.Schema({
   creationDate: {
     type: Date,
     default: Date.now,
+    
   },
   status: {
     type: String,
@@ -19,6 +20,8 @@ const taskSchema = new mongoose.Schema({
     default: "pending",
   },
 });
+
+
 
 const Task = mongoose.model("Task", taskSchema);
 module.exports=Task;
