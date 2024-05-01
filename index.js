@@ -1,14 +1,14 @@
+require("dotenv").config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./db");
-const taskRouter=require('./routes/taskRoutes');
-const controller=require('./controller/taskController');
-const middileware=require('./middilware/taskMiddileware');
+const taskRouter = require("./routes/taskRoutes");
+const controller = require("./controller/taskController");
+const middileware = require("./middilware/taskMiddileware");
 const app = express();
 
-require("dotenv").config();
-
-const PORT = process.env.PORT;
+const PORT = process.env.PORT||8398;
 
 app.use(bodyParser.json());
 

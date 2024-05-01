@@ -3,7 +3,8 @@ require("dotenv").config();
 
 const connectDB = async () => {
   try {
-    let dbUrl = "mongodb://0.0.0.0:27017/task_manager";
+    //let dbUrl = "mongodb://127.0.0.1:27017/task_manager";
+    let dbUrl = process.env.MONGO_URL;
 
     const connection = await mongoose.connect(dbUrl);
     console.log(`connected to mongoDb ${mongoose.connection.host}`);
